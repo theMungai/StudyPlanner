@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGrip,faBookOpen,faCalculator,faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 function SidePanel() {
   return (
-    <div className='border basis-[20%]'>
+    <div className=' basis-[20%]'>
       <h1 className='font-bold text-2xl text-[#0F766EFF]'>StudyPlanner</h1>
       <nav>
         <ul>
