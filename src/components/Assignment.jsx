@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCirclePlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Layout from './Layout';
-import { fetchAssignments, fetchCourses } from './dataService';
+import { fetchAssignments, fetchCourses, addAssignment, updateAssignment, deleteAssignment } from './dataService';
 
 function Assignment() {
   const [showModal, setShowModal] = useState(false);
@@ -91,72 +91,46 @@ function Assignment() {
   };
 
   // Save or update task
-  function handleSave() {
+  async function handleSave() {
     if (!formData.title || !formData.dueDate) {
       alert('Title and Due Date are required!');
       return;
     }
 
-    const taskToSave = {
-      ...formData,
-      id: editingTask ? editingTask.id : Date.now().toString(), // unique ID for new task
-    };
+    try {
+      const taskToSave = {
+        ...formData,
+        id: editingTask ? editingTask.id : Date.now(),
+      };
 
-    if (editingTask) {
-      // Update task with PUT request
-      fetch(`http://localhost:3000/assignments/${editingTask.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(taskToSave),
-      })
-        .then(response => response.json())
-        .then(updatedTask => {
-          setTasks(prevTasks => prevTasks.map(task => 
-            task.id === editingTask.id ? updatedTask : task
-          ));
-          setShowModal(false);
-          resetForm();
-        })
-        .catch(error => {
-          console.error('Error updating task:', error);
-        });
-    } else {
-      // Add new task with POST request
-      fetch('http://localhost:3000/assignments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(taskToSave),
-      })
-        .then(response => response.json())
-        .then(newTask => {
-          setTasks(prevTasks => [...prevTasks, newTask]);
-          setShowModal(false);
-          resetForm();
-        })
-        .catch(error => {
-          console.error('Error adding new task:', error);
-        });
+      let updatedTasks;
+      if (editingTask) {
+        updatedTasks = await updateAssignment(tasks, taskToSave);
+      } else {
+        updatedTasks = await addAssignment(tasks, taskToSave);
+      }
+
+      setTasks(updatedTasks);
+      setShowModal(false);
+      resetForm();
+    } catch (error) {
+      console.error('Error saving task:', error);
+      alert('Failed to save the assignment. Please try again.');
     }
-  };
+  }
 
   // Delete task
-  function handleDelete(taskId) {
+  async function handleDelete(taskId) {
     if (window.confirm('Are you sure you want to delete this assignment?')) {
-      fetch(`http://localhost:3000/assignments/${taskId}`, {
-        method: 'DELETE',
-      })
-        .then(() => {
-          setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
-        })
-        .catch(error => {
-          console.error('Error deleting task:', error);
-        });
+      try {
+        const updatedTasks = await deleteAssignment(tasks, taskId);
+        setTasks(updatedTasks);
+      } catch (error) {
+        console.error('Error deleting task:', error);
+        alert('Failed to delete the assignment. Please try again.');
+      }
     }
-  };
+  }
 
   // Edit task - populate form with existing data
   function handleEdit(task) {
