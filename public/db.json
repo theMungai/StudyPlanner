@@ -1,0 +1,76 @@
+{
+  "assignments": [
+    {
+      "id": 1,
+      "title": "Research Paper",
+      "description": "Write a 10-page research paper on a topic of your choice related to the course material.",
+      "dueDate": "2023-05-15T23:59:59",
+      "courseId": 1,
+      "status": "Completed",
+      "notes": "Include at least 5 academic sources.",
+      "fileUrl": null
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "name": "Introduction to Psychology",
+      "code": "PSY101",
+      "instructor": "Dr. Smith",
+      "color": "teal"
+    },
+    {
+      "id": 2,
+      "name": "Business Ethics",
+      "code": "BUS220",
+      "instructor": "Prof. Johnson",
+      "color": "blue"
+    },
+    {
+      "id": 3,
+      "name": "Calculus II",
+      "code": "MATH202",
+      "instructor": "Dr. Garcia",
+      "color": "purple"
+    },
+    {
+      "id": 4,
+      "name": "Computer Science Fundamentals",
+      "code": "CS150",
+      "instructor": "Prof. Zhang",
+      "color": "amber"
+    },
+    {
+      "id": 5,
+      "name": "World Literature",
+      "code": "LIT110",
+      "instructor": "Dr. Patel",
+      "color": "emerald"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@university.edu",
+      "studentId": "S12345678",
+      "avatar": "/placeholder.svg?height=100&width=100"
+    }
+  ],
+  "gradeItems": [
+    {
+      "id": 1,
+      "name": "Midterm Exam",
+      "score": 85,
+      "weight": 30,
+      "courseId": 1
+    },
+    {
+      "id": 2,
+      "name": "Final Project",
+      "score": 92,
+      "weight": 40,
+      "courseId": 1
+    }
+  ]
+} 

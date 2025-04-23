@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCirclePlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Layout from './Layout';
+import { fetchAssignments, fetchCourses } from './dataService';
 
 function Assignment() {
   const [showModal, setShowModal] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [file, setFile] = useState(null);
 
   // Form state
@@ -25,14 +27,28 @@ function Assignment() {
   const [selectedStatus, setSelectedStatus] = useState('');
 
   useEffect(() => {
-    // Fetch tasks using fetch API
-    fetch('http://localhost:3000/assignments')
-      .then(response => response.json())
-      .then(data => setTasks(data))
-      .catch(error => {
-        console.error('Error fetching tasks:', error);
-      });
+    // Fetch both assignments and courses
+    const fetchData = async () => {
+      try {
+        const [assignmentsData, coursesData] = await Promise.all([
+          fetchAssignments(),
+          fetchCourses()
+        ]);
+        setTasks(assignmentsData);
+        setCourses(coursesData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  // Helper function to get course name by ID
+  const getCourseName = (courseId) => {
+    const course = courses.find(c => c.id === courseId);
+    return course ? course.name : 'Unknown Course';
+  };
 
   function getStatusClass(status) {
     switch (status) {
@@ -159,7 +175,7 @@ function Assignment() {
 
   // Filter tasks based on selected filters
   const filteredTasks = tasks.filter(task => {
-    const courseMatch = selectedCourse ? task.courseId === Number(selectedCourse) : true; // Ensure selectedCourse is treated as a number
+    const courseMatch = selectedCourse ? task.courseId === Number(selectedCourse) : true;
     const statusMatch = selectedStatus ? task.status === selectedStatus : true;
     return courseMatch && statusMatch;
   });
@@ -196,11 +212,9 @@ function Assignment() {
                   className="w-full sm:w-auto px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 >
                   <option value="">All Courses</option>
-                  <option value="1">Introduction to Psychology</option>
-                  <option value="2">Business Ethics</option>
-                  <option value="3">Calculus II</option>
-                  <option value="4">Computer Science Fundamentals</option>
-                  <option value="5">World Literature</option>
+                  {courses.map(course => (
+                    <option key={course.id} value={course.id}>{course.name}</option>
+                  ))}
                 </select>
               </div>
               <select 
@@ -241,10 +255,16 @@ function Assignment() {
                           <div className="text-sm text-gray-500 mt-1">{task.description.substring(0, 50)}...</div>
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{task.course}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{task.dueDate}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {getCourseName(task.courseId)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {new Date(task.dueDate).toLocaleDateString()}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-block text-center px-3 py-1 text-xs rounded-full ${getStatusClass(task.status)}`}>{task.status}</span>
+                        <span className={`inline-block text-center px-3 py-1 text-xs rounded-full ${getStatusClass(task.status)}`}>
+                          {task.status}
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex gap-3">
                         <button onClick={() => handleEdit(task)} className="text-blue-600 hover:text-blue-800" title="Edit">
