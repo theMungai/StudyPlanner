@@ -22,7 +22,7 @@ function AssigmentsCard({title, subject, date, time, color}){
 
 function UpcomingAssignment() {
   return (
-    <div className='basis-[50%]'>
+    <div className='basis-[48%]'>
       <h1 className='text-[#121212FF] text-2xl font-bold'>Upcoming Assignments</h1>
       <p className='text-[14px] text-[#71717A] mb-10'>Assigments due in the next 3 days</p>
 

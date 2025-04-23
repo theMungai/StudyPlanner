@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function SidePanel() {
   return (
-    <div className=' basis-[20%]'>
+    <div className=' basis-[20%] relative'>
       <h1 className='font-bold text-2xl text-[#0F766EFF]'>StudyPlanner</h1>
       <nav>
         <ul>
@@ -38,7 +38,7 @@ function SidePanel() {
             </li>
         </ul>
       </nav>
-      <button className='text-sm text-[#71717A] cursor-pointer'>
+      <button className='text-sm text-[#71717A] cursor-pointer absolute bottom-0'>
         <FontAwesomeIcon icon={faRightFromBracket} className='mx-3'/>
         Logout
       </button>
