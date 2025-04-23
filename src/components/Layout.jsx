@@ -10,7 +10,7 @@ function Layout({ children }) {
           {children}
         </div>
       </div>
-      <footer className='w-full bg-[#121212FF] h-8'></footer>
+      <footer className='w-full bg-[#121212FF] h-8 fixed bottom-0'></footer>
     </>
   )
 }

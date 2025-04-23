@@ -38,7 +38,7 @@ function SidePanel() {
             </li>
         </ul>
       </nav>
-      <button className='text-sm text-[#71717A] cursor-pointer absolute bottom-0'>
+      <button className='text-sm text-[#71717A] cursor-pointer absolute bottom-5'>
         <FontAwesomeIcon icon={faRightFromBracket} className='mx-3'/>
         Logout
       </button>

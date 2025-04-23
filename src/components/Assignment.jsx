@@ -2,27 +2,27 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCirclePlus, faFilter, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import tasks from './Tasks'; // Assumes tasks.js exports an array
-import SidePanel from './SidePanel';
+import Layout from './Layout';
 
 function getStatusClass(status) {
   switch (status) {
     case "Completed":
-      return "text-[#166534] bg-[#BBF7D0] font-semibold rounded-full";
+      return "bg-green-100 text-green-700";
     case "Pending":
-      return "text-[#92400E] bg-[#FDE68A] rounded-full font-semibold";
+      return "bg-red-100 text-red-700";
     case "In Progress":
-      return "text-[#1E40AF] font-semibold rounded-full";
+      return "bg-yellow-100 text-yellow-700";
     default:
-      return "";
+      return "bg-gray-100 text-gray-700";
   }
 }
 
 function Assignment() {
-  return (
+  
+      return (<Layout>
     <>
-        <div className="AssignmentPage flex py-8 px-7">
-        <SidePanel/>
-        <div className=' basis-[80%]'>
+        
+        <div className=' space-y-6'>
         
         <div className="assignments-header flex items-center justify-between mb-14">
             <div>
@@ -62,39 +62,61 @@ function Assignment() {
             </div>
             </div>
 
-            <table className='w-full'>
-            <thead>
-                <tr className='text-[#71717A] text-[14px] text-left font-light'>
-                <th className='pb-6'>Title</th>
-                <th className='pb-6'>Course</th>
-                <th className='pb-6'>Due Date</th>
-                <th className='pb-6'>Status</th>
-                <th className='pb-6'>Actions</th>
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Title
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Course
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Due Date
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
-            </thead>
+              </thead>
 
-            <tbody>
+              <tbody className="bg-white divide-y divide-gray-200">
                 {tasks.map((task, index) => (
-                <tr key={index} className=''>
-                    <td className='py-6'>{task.title}</td>
-                    <td className='py-6'>{task.course}</td>
-                    <td className='py-6'>{task.dueDate}</td>
-                    <td> <span className={`cursor-pointer text-center py-2.5 px-10 w-4/5 ${getStatusClass(task.status)}`}>{task.status}</span></td>
-                    <td className='py-6'>
-                    <FontAwesomeIcon icon={faPenToSquare} className='cursor-pointer' />
+                  <tr key={index}>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      {task.title}
                     </td>
-                </tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {task.course}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {task.dueDate}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <span className={`inline-block text-center px-4 py-1 rounded-full ${getStatusClass(task.status)}`}>
+                        {task.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <FontAwesomeIcon icon={faPenToSquare} className="text-gray-600 hover:text-teal-600 cursor-pointer" />
+                    </td>
+                  </tr>
                 ))}
-            </tbody>
-            </table>
+              </tbody>
+          </table>
+
         </div>
         </div>
-        </div>
-        <footer className='w-full bg-[#121212FF] h-8'></footer>
+        
     </>
     
-    
-  );
+  </Layout>  
+  )
+  
+  
 }
 
 export default Assignment;
