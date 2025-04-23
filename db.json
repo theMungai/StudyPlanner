@@ -1,0 +1,223 @@
+{
+    "assignments": [
+      {
+        "id": 1,
+        "title": "Research Paper",
+        "description": "Write a 10-page research paper on a topic of your choice related to the course material.",
+        "dueDate": "2023-05-15T23:59:59",
+        "courseId": 1,
+        "status": "Completed",
+        "notes": "Include at least 5 academic sources.",
+        "fileUrl": null
+      },
+      {
+        "id": 2,
+        "title": "Midterm Exam",
+        "description": "Online exam covering chapters 1-5.",
+        "dueDate": "2023-05-20T14:30:00",
+        "courseId": 1,
+        "status": "Pending",
+        "notes": "Closed book, 2 hours time limit.",
+        "fileUrl": null
+      },
+      {
+        "id": 3,
+        "title": "Group Project",
+        "description": "Work in groups of 3-4 to create a presentation on the assigned topic.",
+        "dueDate": "2023-05-25T23:59:59",
+        "courseId": 2,
+        "status": "In Progress",
+        "notes": "Presentation should be 15-20 minutes long.",
+        "fileUrl": "/sample-file.pdf"
+      },
+      {
+        "id": 4,
+        "title": "Lab Report",
+        "description": "Write a report on the experiment conducted in lab session 3.",
+        "dueDate": "2023-05-10T23:59:59",
+        "courseId": 3,
+        "status": "Completed",
+        "notes": "Follow the lab report format provided in the syllabus.",
+        "fileUrl": null
+      },
+      {
+        "id": 5,
+        "title": "Programming Assignment",
+        "description": "Implement a sorting algorithm and analyze its time complexity.",
+        "dueDate": "2023-05-18T23:59:59",
+        "courseId": 4,
+        "status": "In Progress",
+        "notes": "Code must be well-documented.",
+        "fileUrl": "/code-sample.zip"
+      },
+      {
+        "id": 6,
+        "title": "Final Project",
+        "description": "Create a comprehensive portfolio showcasing your work throughout the semester.",
+        "dueDate": "2023-06-05T23:59:59",
+        "courseId": 5,
+        "status": "Pending",
+        "notes": "Include reflections on each piece in your portfolio.",
+        "fileUrl": null
+      },
+      {
+        "id": 7,
+        "title": "Quiz 3",
+        "description": "Short quiz covering recent lectures.",
+        "dueDate": "2023-05-12T10:00:00",
+        "courseId": 2,
+        "status": "Completed",
+        "notes": "15 multiple choice questions.",
+        "fileUrl": null
+      },
+      {
+        "id": 8,
+        "title": "Reading Response",
+        "description": "Write a 2-page response to the assigned reading.",
+        "dueDate": "2023-05-14T23:59:59",
+        "courseId": 1,
+        "status": "Completed",
+        "notes": "Focus on critical analysis rather than summary.",
+        "fileUrl": null
+      },
+      {
+        "id": 9,
+        "title": "Problem Set 4",
+        "description": "Complete problems 1-10 in chapter 7.",
+        "dueDate": "2023-05-22T23:59:59",
+        "courseId": 3,
+        "status": "Pending",
+        "notes": "Show all work for full credit.",
+        "fileUrl": null
+      },
+      {
+        "id": 10,
+        "title": "Final Exam",
+        "description": "Comprehensive exam covering all course material.",
+        "dueDate": "2023-06-10T13:00:00",
+        "courseId": 4,
+        "status": "Pending",
+        "notes": "Bring calculator and one page of notes.",
+        "fileUrl": null
+      }
+    ],
+    "courses": [
+      {
+        "id": 1,
+        "name": "Introduction to Psychology",
+        "code": "PSY101",
+        "instructor": "Dr. Smith",
+        "color": "teal"
+      },
+      {
+        "id": 2,
+        "name": "Business Ethics",
+        "code": "BUS220",
+        "instructor": "Prof. Johnson",
+        "color": "blue"
+      },
+      {
+        "id": 3,
+        "name": "Calculus II",
+        "code": "MATH202",
+        "instructor": "Dr. Garcia",
+        "color": "purple"
+      },
+      {
+        "id": 4,
+        "name": "Computer Science Fundamentals",
+        "code": "CS150",
+        "instructor": "Prof. Zhang",
+        "color": "amber"
+      },
+      {
+        "id": 5,
+        "name": "World Literature",
+        "code": "LIT110",
+        "instructor": "Dr. Patel",
+        "color": "emerald"
+      }
+    ],
+    "users": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john.doe@university.edu",
+        "studentId": "S12345678",
+        "avatar": "/placeholder.svg?height=100&width=100"
+      }
+    ],
+    "gradeItems": [
+      {
+        "id": 1,
+        "name": "Midterm Exam",
+        "score": 85,
+        "weight": 30,
+        "courseId": 1
+      },
+      {
+        "id": 2,
+        "name": "Final Project",
+        "score": 92,
+        "weight": 40,
+        "courseId": 1
+      },
+      {
+        "id": 3,
+        "name": "Homework",
+        "score": 88,
+        "weight": 20,
+        "courseId": 1
+      },
+      {
+        "id": 4,
+        "name": "Participation",
+        "score": 95,
+        "weight": 10,
+        "courseId": 1
+      },
+      {
+        "id": 5,
+        "name": "Quiz 1",
+        "score": 78,
+        "weight": 15,
+        "courseId": 2
+      },
+      {
+        "id": 6,
+        "name": "Midterm Presentation",
+        "score": 88,
+        "weight": 25,
+        "courseId": 2
+      },
+      {
+        "id": 7,
+        "name": "Final Exam",
+        "score": 91,
+        "weight": 40,
+        "courseId": 2
+      },
+      {
+        "id": 8,
+        "name": "Problem Set 1",
+        "score": 82,
+        "weight": 10,
+        "courseId": 3
+      },
+      {
+        "id": 9,
+        "name": "Midterm",
+        "score": 76,
+        "weight": 30,
+        "courseId": 3
+      },
+      {
+        "id": 10,
+        "name": "Final Exam",
+        "score": 89,
+        "weight": 40,
+        "courseId": 3
+      }
+    ]
+  }
+  
