@@ -115,6 +115,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter)
+Contributors:
+- Mungai
+- Faith
+- Cyprian
 
-Project Link: [https://github.com/yourusername/StudyPlanner](https://github.com/yourusername/StudyPlanner)
+Project Link: [https://github.com/theMungai/StudyPlanner](https://github.com/theMungai/StudyPlanner)
