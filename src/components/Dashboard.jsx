@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleExclamation,faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { faCircleCheck, faClock } from '@fortawesome/free-regular-svg-icons';
 import UpcomingAssignment from './UpcomingAssignment';
 import CourseProgress from './CourseProgress';
 
+// Dashboard statistics
 function DashboardStats({title, count, children}){
   return(
     <div>
@@ -18,6 +19,22 @@ function DashboardStats({title, count, children}){
 }
 
 function Dashboard(){
+
+  const [progress, setProgress] = useState([0, 0, 0, 0, 0]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        return prevProgress.map((p) => {
+          if (p >= 100) return p; // Don't increment if progress is 100
+          return p + 10;
+        });
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className='basis-[80%]'>
       <h1 className='text-[#121212FF] text-3xl font-bold'>Dashboard</h1>
@@ -41,9 +58,18 @@ function Dashboard(){
         </DashboardStats>
       </div>
 
-      <div className='flex gap-x-8'>
+      <div className='flex p-6 gap-x-10'>
         <UpcomingAssignment/>
-        <CourseProgress/>
+        
+        <div className="p-6">
+          <h1 className="text-xl mb-4">Multiple Progress Bars</h1>
+          {progress.map((prog, index) => (
+            <div key={index}>
+              <CourseProgress progress={prog} color={index % 2 === 0 ? "blue" : "green"} />
+              <div className="mt-1 text-sm">Progress Bar {index + 1}: {prog}%</div>
+            </div>
+          ))}
+      </div>
       </div>
     </div>
   )
