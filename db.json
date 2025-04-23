@@ -211,9 +211,17 @@
         "weight": 30,
         "courseId": 3
       },
+      
       {
         "id": 10,
         "name": "Final Exam",
+        "score": 89,
+        "weight": 40,
+        "courseId": 3
+      },
+      {
+        "id": 11,
+        "name": "Final Moringa Codility",
         "score": 89,
         "weight": 40,
         "courseId": 3
