@@ -31,16 +31,19 @@ function SidePanel() {
             </li>
 
             <li className='text-sm text-[#71717A] hover:text-[#0F766EFF] cursor-pointer my-1.5 p-2.5'>
-                <Link to="/settings" className='flex items-center'>
-                    <FontAwesomeIcon icon={faGear} className='mx-3'/>
-                    Settings
-                </Link>
+              <Link to="/settings" className='flex items-center'>
+                  <FontAwesomeIcon icon={faGear} className='mx-3'/>
+                  Settings
+              </Link>
             </li>
         </ul>
       </nav>
       <button className='text-sm text-[#71717A] cursor-pointer absolute bottom-5'>
-        <FontAwesomeIcon icon={faRightFromBracket} className='mx-3'/>
-        Logout
+        <Link to="/">
+          <FontAwesomeIcon icon={faRightFromBracket} className='mx-3'/>
+          Logout
+        </Link>
+        
       </button>
     </div>
   )

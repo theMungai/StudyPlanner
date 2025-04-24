@@ -6,7 +6,7 @@ function Layout({ children }) {
     <>
       <div className='flex w-full gap-x-8 p-6'>
         <SidePanel />
-        <div className='basis-[80%]'>
+        <div className='basis-[84%]'>
           {children}
         </div>
       </div>

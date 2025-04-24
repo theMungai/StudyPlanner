@@ -60,7 +60,7 @@ function Dashboard() {
               key={index}
               label={item.label}
               progress={item.value}
-              trackColor={item.trackColor} // Passing track color
+              trackColor={item.trackColor} 
             />
           ))}
         </div>

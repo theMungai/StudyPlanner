@@ -7,7 +7,7 @@ function CourseProgress({ progress, label}) {
         <span>{label}</span>
         <span>{progress}%</span>
       </div>
-      <div className="w-full rounded-full bg-[#f0d775]" >
+      <div className="w-full rounded-full bg-[#ecd67c]" >
         <div
           className="h-2 bg-black rounded-full"
           style={{ width: `${progress}%` }}
