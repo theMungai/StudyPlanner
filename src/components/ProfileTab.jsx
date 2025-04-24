@@ -59,11 +59,12 @@ function ProfileTab() {
         </div>
 
         <div>
-          <label htmlFor="full-name" className="block text-gray-700 text-sm font-bold mb-2 flex items-center justify-between">
+          <label htmlFor="full-name" className=" text-gray-700 text-sm font-bold mb-2 flex items-center justify-between">
             Full Name
             <FontAwesomeIcon icon={faPen} className="text-xs text-[#0F766EFF]" />
           </label>
-          <input type="text" id="full-name" value={fullName} onChange={(e) => setFullName(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+          <input type="text" id="full-name" value={fullName}  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          onChange={(e) => setFullName(e.target.value)}/>
         </div>
 
         <div>
