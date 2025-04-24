@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function SidePanel() {
   return (
-    <div className=' basis-[20%] relative'>
+    <div className=' basis-[16%] relative'>
       <h1 className='font-bold text-2xl text-[#0F766EFF]'>StudyPlanner</h1>
       <nav>
         <ul>
