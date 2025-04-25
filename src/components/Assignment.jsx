@@ -10,6 +10,7 @@ function Assignment() {
   const [tasks, setTasks] = useState([]);
   const [courses, setCourses] = useState([]);
   const [file, setFile] = useState(null);
+  const [ setFile] = useState(null);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -241,10 +242,10 @@ function Assignment() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex gap-3">
-                        <button onClick={() => handleEdit(task)} className="text-blue-600 hover:text-blue-800" title="Edit">
+                        <button onClick={() => handleEdit(task)} className="text-blue-400 " title="Edit">
                           <FontAwesomeIcon icon={faPenToSquare} />
                         </button>
-                        <button onClick={() => handleDelete(task.id)} className="text-red-600 hover:text-red-800" title="Delete">
+                        <button onClick={() => handleDelete(task.id)} className="text-red-400 " title="Delete">
                           <FontAwesomeIcon icon={faTrash} />
                         </button>
                       </td>
@@ -260,10 +261,10 @@ function Assignment() {
           )}
         </div>
 
-        {/* Add/Edit Assignment Modal */}
+        {/* Add Assignment Modal */}
         {showModal && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white max-w-md w-full p-6 rounded-lg shadow-lg">
+          <div className="fixed inset-0 z-50 bg-[#222222]/50 backdrop-blur-md flex items-center justify-center">
+            <div className="bg-white w-[600px] p-6 rounded-lg shadow-lg">
               <div className="flex justify-between items-center">
                 <h2 className="text-xl font-semibold">{editingTask ? 'Edit' : 'Add'} Assignment</h2>
                 <button onClick={() => setShowModal(false)} className="text-gray-600 text-2xl">×</button>
@@ -271,41 +272,19 @@ function Assignment() {
               <form>
                 <div className="my-4">
                   <label className="block text-sm font-medium text-gray-700">Title</label>
-                  <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleInputChange}
-                    className="w-full border rounded-md px-3 py-2 mt-1"
-                  />
+                  <input type="text" name="title" value={formData.title} onChange={handleInputChange} className="w-full border rounded-md px-3 py-2 mt-1"/>
                 </div>
                 <div className="my-4">
                   <label className="block text-sm font-medium text-gray-700">Description</label>
-                  <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    className="w-full border rounded-md px-3 py-2 mt-1"
-                  />
+                  <textarea name="description" value={formData.description} onChange={handleInputChange} className="w-full border rounded-md px-3 py-2 mt-1"/>
                 </div>
                 <div className="my-4">
                   <label className="block text-sm font-medium text-gray-700">Due Date</label>
-                  <input
-                    type="date"
-                    name="dueDate"
-                    value={formData.dueDate}
-                    onChange={handleInputChange}
-                    className="w-full border rounded-md px-3 py-2 mt-1"
-                  />
+                  <input type="date" name="dueDate" value={formData.dueDate} onChange={handleInputChange} className="w-full border rounded-md px-3 py-2 mt-1"/>
                 </div>
                 <div className="my-4">
                   <label className="block text-sm font-medium text-gray-700">Course</label>
-                  <select
-                    name="courseId"
-                    value={formData.courseId}
-                    onChange={handleInputChange}
-                    className="w-full border rounded-md px-3 py-2 mt-1"
-                  >
+                  <select name="courseId" value={formData.courseId} onChange={handleInputChange} className="w-full border rounded-md px-3 py-2 mt-1">
                     <option value="1">Introduction to Psychology</option>
                     <option value="2">Business Ethics</option>
                     <option value="3">Calculus II</option>
@@ -343,6 +322,17 @@ function Assignment() {
                     className="w-full mt-1"
                   />
                 </div>
+
+                <div className="mt-6 text-right">
+                  <button
+                    type="button"
+                    onClick={handleSave}
+                    className=" text-gray-700 py-2 px-6 rounded-lg "
+                  >
+                    Cancel
+                  </button>
+                </div>
+                
                 <div className="mt-6 text-right">
                   <button
                     type="button"

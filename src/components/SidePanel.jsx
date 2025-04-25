@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function SidePanel() {
   return (
-    <div className=' basis-[20%] relative'>
+    <div className=' basis-[16%] relative'>
       <h1 className='font-bold text-2xl text-[#0F766EFF]'>StudyPlanner</h1>
       <nav>
         <ul>
@@ -31,16 +31,19 @@ function SidePanel() {
             </li>
 
             <li className='text-sm text-[#71717A] hover:text-[#0F766EFF] cursor-pointer my-1.5 p-2.5'>
-                <Link to="/settings" className='flex items-center'>
-                    <FontAwesomeIcon icon={faGear} className='mx-3'/>
-                    Settings
-                </Link>
+              <Link to="/settings" className='flex items-center'>
+                  <FontAwesomeIcon icon={faGear} className='mx-3'/>
+                  Settings
+              </Link>
             </li>
         </ul>
       </nav>
       <button className='text-sm text-[#71717A] cursor-pointer absolute bottom-5'>
-        <FontAwesomeIcon icon={faRightFromBracket} className='mx-3'/>
-        Logout
+        <Link to="/">
+          <FontAwesomeIcon icon={faRightFromBracket} className='mx-3'/>
+          Logout
+        </Link>
+        
       </button>
     </div>
   )
