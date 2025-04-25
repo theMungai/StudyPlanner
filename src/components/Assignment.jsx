@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCirclePlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Layout from './Layout';
+import { fetchAssignments, fetchCourses, addAssignment, updateAssignment, deleteAssignment } from './dataService';
 
 function Assignment() {
   const [showModal, setShowModal] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [file, setFile] = useState(null);
+  // const [ setFile] = useState(null);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -25,14 +28,28 @@ function Assignment() {
   const [selectedStatus, setSelectedStatus] = useState('');
 
   useEffect(() => {
-    // Fetch tasks using fetch API
-    fetch('http://localhost:3000/assignments')
-      .then(response => response.json())
-      .then(data => setTasks(data))
-      .catch(error => {
-        console.error('Error fetching tasks:', error);
-      });
+    // Fetch both assignments and courses
+    const fetchData = async () => {
+      try {
+        const [assignmentsData, coursesData] = await Promise.all([
+          fetchAssignments(),
+          fetchCourses()
+        ]);
+        setTasks(assignmentsData);
+        setCourses(coursesData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  // Helper function to get course name by ID
+  const getCourseName = (courseId) => {
+    const course = courses.find(c => c.id === courseId);
+    return course ? course.name : 'Unknown Course';
+  };
 
   function getStatusClass(status) {
     switch (status) {
@@ -75,72 +92,46 @@ function Assignment() {
   };
 
   // Save or update task
-  function handleSave() {
+  async function handleSave() {
     if (!formData.title || !formData.dueDate) {
       alert('Title and Due Date are required!');
       return;
     }
 
-    const taskToSave = {
-      ...formData,
-      id: editingTask ? editingTask.id : Date.now().toString(), // unique ID for new task
-    };
+    try {
+      const taskToSave = {
+        ...formData,
+        id: editingTask ? editingTask.id : Date.now(),
+      };
 
-    if (editingTask) {
-      // Update task with PUT request
-      fetch(`http://localhost:3000/assignments/${editingTask.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(taskToSave),
-      })
-        .then(response => response.json())
-        .then(updatedTask => {
-          setTasks(prevTasks => prevTasks.map(task => 
-            task.id === editingTask.id ? updatedTask : task
-          ));
-          setShowModal(false);
-          resetForm();
-        })
-        .catch(error => {
-          console.error('Error updating task:', error);
-        });
-    } else {
-      // Add new task with POST request
-      fetch('http://localhost:3000/assignments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(taskToSave),
-      })
-        .then(response => response.json())
-        .then(newTask => {
-          setTasks(prevTasks => [...prevTasks, newTask]);
-          setShowModal(false);
-          resetForm();
-        })
-        .catch(error => {
-          console.error('Error adding new task:', error);
-        });
+      let updatedTasks;
+      if (editingTask) {
+        updatedTasks = await updateAssignment(tasks, taskToSave);
+      } else {
+        updatedTasks = await addAssignment(tasks, taskToSave);
+      }
+
+      setTasks(updatedTasks);
+      setShowModal(false);
+      resetForm();
+    } catch (error) {
+      console.error('Error saving task:', error);
+      alert('Failed to save the assignment. Please try again.');
     }
-  };
+  }
 
   // Delete task
-  function handleDelete(taskId) {
+  async function handleDelete(taskId) {
     if (window.confirm('Are you sure you want to delete this assignment?')) {
-      fetch(`http://localhost:3000/assignments/${taskId}`, {
-        method: 'DELETE',
-      })
-        .then(() => {
-          setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
-        })
-        .catch(error => {
-          console.error('Error deleting task:', error);
-        });
+      try {
+        const updatedTasks = await deleteAssignment(tasks, taskId);
+        setTasks(updatedTasks);
+      } catch (error) {
+        console.error('Error deleting task:', error);
+        alert('Failed to delete the assignment. Please try again.');
+      }
     }
-  };
+  }
 
   // Edit task - populate form with existing data
   function handleEdit(task) {
@@ -159,7 +150,7 @@ function Assignment() {
 
   // Filter tasks based on selected filters
   const filteredTasks = tasks.filter(task => {
-    const courseMatch = selectedCourse ? task.courseId === Number(selectedCourse) : true; // Ensure selectedCourse is treated as a number
+    const courseMatch = selectedCourse ? task.courseId === Number(selectedCourse) : true;
     const statusMatch = selectedStatus ? task.status === selectedStatus : true;
     return courseMatch && statusMatch;
   });
@@ -196,11 +187,9 @@ function Assignment() {
                   className="w-full sm:w-auto px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 >
                   <option value="">All Courses</option>
-                  <option value="1">Introduction to Psychology</option>
-                  <option value="2">Business Ethics</option>
-                  <option value="3">Calculus II</option>
-                  <option value="4">Computer Science Fundamentals</option>
-                  <option value="5">World Literature</option>
+                  {courses.map(course => (
+                    <option key={course.id} value={course.id}>{course.name}</option>
+                  ))}
                 </select>
               </div>
               <select 
@@ -241,16 +230,22 @@ function Assignment() {
                           <div className="text-sm text-gray-500 mt-1">{task.description.substring(0, 50)}...</div>
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{task.course}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{task.dueDate}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {getCourseName(task.courseId)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {new Date(task.dueDate).toLocaleDateString()}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-block text-center px-3 py-1 text-xs rounded-full ${getStatusClass(task.status)}`}>{task.status}</span>
+                        <span className={`inline-block text-center px-3 py-1 text-xs rounded-full ${getStatusClass(task.status)}`}>
+                          {task.status}
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex gap-3">
-                        <button onClick={() => handleEdit(task)} className="text-blue-600 hover:text-blue-800" title="Edit">
+                        <button onClick={() => handleEdit(task)} className="text-blue-400 " title="Edit">
                           <FontAwesomeIcon icon={faPenToSquare} />
                         </button>
-                        <button onClick={() => handleDelete(task.id)} className="text-red-600 hover:text-red-800" title="Delete">
+                        <button onClick={() => handleDelete(task.id)} className="text-red-400 " title="Delete">
                           <FontAwesomeIcon icon={faTrash} />
                         </button>
                       </td>
@@ -266,10 +261,10 @@ function Assignment() {
           )}
         </div>
 
-        {/* Add/Edit Assignment Modal */}
+        {/* Add Assignment Modal */}
         {showModal && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white max-w-md w-full p-6 rounded-lg shadow-lg">
+          <div className="fixed inset-0 z-50 bg-[#222222]/50 backdrop-blur-md flex items-center justify-center">
+            <div className="bg-white w-[600px] p-6 rounded-lg shadow-lg">
               <div className="flex justify-between items-center">
                 <h2 className="text-xl font-semibold">{editingTask ? 'Edit' : 'Add'} Assignment</h2>
                 <button onClick={() => setShowModal(false)} className="text-gray-600 text-2xl">×</button>
@@ -277,41 +272,19 @@ function Assignment() {
               <form>
                 <div className="my-4">
                   <label className="block text-sm font-medium text-gray-700">Title</label>
-                  <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleInputChange}
-                    className="w-full border rounded-md px-3 py-2 mt-1"
-                  />
+                  <input type="text" name="title" value={formData.title} onChange={handleInputChange} className="w-full border rounded-md px-3 py-2 mt-1"/>
                 </div>
                 <div className="my-4">
                   <label className="block text-sm font-medium text-gray-700">Description</label>
-                  <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    className="w-full border rounded-md px-3 py-2 mt-1"
-                  />
+                  <textarea name="description" value={formData.description} onChange={handleInputChange} className="w-full border rounded-md px-3 py-2 mt-1"/>
                 </div>
                 <div className="my-4">
                   <label className="block text-sm font-medium text-gray-700">Due Date</label>
-                  <input
-                    type="date"
-                    name="dueDate"
-                    value={formData.dueDate}
-                    onChange={handleInputChange}
-                    className="w-full border rounded-md px-3 py-2 mt-1"
-                  />
+                  <input type="date" name="dueDate" value={formData.dueDate} onChange={handleInputChange} className="w-full border rounded-md px-3 py-2 mt-1"/>
                 </div>
                 <div className="my-4">
                   <label className="block text-sm font-medium text-gray-700">Course</label>
-                  <select
-                    name="courseId"
-                    value={formData.courseId}
-                    onChange={handleInputChange}
-                    className="w-full border rounded-md px-3 py-2 mt-1"
-                  >
+                  <select name="courseId" value={formData.courseId} onChange={handleInputChange} className="w-full border rounded-md px-3 py-2 mt-1">
                     <option value="1">Introduction to Psychology</option>
                     <option value="2">Business Ethics</option>
                     <option value="3">Calculus II</option>
@@ -349,6 +322,17 @@ function Assignment() {
                     className="w-full mt-1"
                   />
                 </div>
+
+                <div className="mt-6 text-right">
+                  <button
+                    type="button"
+                    onClick={handleSave}
+                    className=" text-gray-700 py-2 px-6 rounded-lg "
+                  >
+                    Cancel
+                  </button>
+                </div>
+                
                 <div className="mt-6 text-right">
                   <button
                     type="button"

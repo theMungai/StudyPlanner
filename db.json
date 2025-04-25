@@ -1,8 +1,7 @@
 {
-
   "assignments": [
     {
-      "id": "1",
+      "id": 1,
       "title": "Research Paper",
       "course": "Business Ethics",
       "description": "Write a 10-page research paper on a topic of your choice related to the course material.",
@@ -13,7 +12,7 @@
       "fileUrl": null
     },
     {
-      "id": "2",
+      "id": 2,
       "title": "Midterm Exam",
       "course": "Introduction to Psychology",
       "description": "Online exam covering chapters 1-5.",
@@ -24,7 +23,7 @@
       "fileUrl": null
     },
     {
-      "id": "3",
+      "id": 3,
       "title": "Group Project",
       "course": "Computer Science Fundamentals",
       "description": "Work in groups of 3-4 to create a presentation on the assigned topic.",
@@ -35,7 +34,7 @@
       "fileUrl": "/sample-file.pdf"
     },
     {
-      "id": "4",
+      "id": 4,
       "title": "Lab Report",
       "course": "Business Ethics",
       "description": "Write a report on the experiment conducted in lab session 3.",
@@ -46,7 +45,7 @@
       "fileUrl": null
     },
     {
-      "id": "5",
+      "id": 5,
       "title": "Programming Assignment",
       "course": "Calculus II",
       "description": "Implement a sorting algorithm and analyze its time complexity.",
@@ -57,7 +56,7 @@
       "fileUrl": "/code-sample.zip"
     },
     {
-      "id": "6",
+      "id": 6,
       "title": "Final Project",
       "course": "World Literature",
       "description": "Create a comprehensive portfolio showcasing your work throughout the semester.",
@@ -68,7 +67,7 @@
       "fileUrl": null
     },
     {
-      "id": "7",
+      "id": 7,
       "title": "Quiz 3",
       "course": "Introduction to Psychology",
       "description": "Short quiz covering recent lectures.",
@@ -79,7 +78,7 @@
       "fileUrl": null
     },
     {
-      "id": "8",
+      "id": 8,
       "title": "Reading Response",
       "course": "Business Ethics",
       "description": "Write a 2-page response to the assigned reading.",
@@ -92,35 +91,35 @@
   ],
   "courses": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Introduction to Psychology",
       "code": "PSY101",
       "instructor": "Dr. Smith",
       "color": "teal"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Business Ethics",
       "code": "BUS220",
       "instructor": "Prof. Johnson",
       "color": "blue"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Calculus II",
       "code": "MATH202",
       "instructor": "Dr. Garcia",
       "color": "purple"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Computer Science Fundamentals",
       "code": "CS150",
       "instructor": "Prof. Zhang",
       "color": "amber"
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "World Literature",
       "code": "LIT110",
       "instructor": "Dr. Patel",
@@ -129,7 +128,7 @@
   ],
   "users": [
     {
-      "id": "1",
+      "id": 6,
       "name": "John Doe",
       "email": "john.doe@university.edu",
       "studentId": "S12345678",
@@ -138,70 +137,70 @@
   ],
   "gradeItems": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Midterm Exam",
       "score": 85,
       "weight": 30,
       "courseId": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Final Project",
       "score": 92,
       "weight": 40,
       "courseId": 1
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Homework",
       "score": 88,
       "weight": 20,
       "courseId": 1
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Participation",
       "score": 95,
       "weight": 10,
       "courseId": 1
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "Quiz 1",
       "score": 78,
       "weight": 15,
       "courseId": 2
     },
     {
-      "id": "6",
+      "id": 6,
       "name": "Midterm Presentation",
       "score": 88,
       "weight": 25,
       "courseId": 2
     },
     {
-      "id": "7",
+      "id": 7,
       "name": "Final Exam",
       "score": 91,
       "weight": 40,
       "courseId": 2
     },
     {
-      "id": "8",
+      "id": 8,
       "name": "Problem Set 1",
       "score": 82,
       "weight": 10,
       "courseId": 3
     },
     {
-      "id": "9",
+      "id": 9,
       "name": "Midterm",
       "score": 76,
       "weight": 30,
       "courseId": 3
     },
     {
-      "id": "10",
+      "id": 10,
       "name": "Final Exam",
       "score": 89,
       "weight": 40,
@@ -209,4 +208,3 @@
     }
   ]
 }
-
