@@ -10,7 +10,7 @@ function Assignment() {
   const [tasks, setTasks] = useState([]);
   const [courses, setCourses] = useState([]);
   const [file, setFile] = useState(null);
-  const [ setFile] = useState(null);
+  // const [ setFile] = useState(null);
 
   // Form state
   const [formData, setFormData] = useState({
